@@ -46,7 +46,6 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.User
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
-
         TextView login;
         ImageView userAvatar;
 
