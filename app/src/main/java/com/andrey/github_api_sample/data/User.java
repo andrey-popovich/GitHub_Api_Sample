@@ -44,6 +44,28 @@ public class User extends RealmObject{
     private String type;
     @SerializedName("site_admin")
     private Boolean siteAdmin;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("company")
+    private String company;
+    @SerializedName("blog")
+    private String blog;
+    @SerializedName("location")
+    private String location;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("public_repos")
+    private Integer publicRepos;
+    @SerializedName("public_gists")
+    private Integer publicGists;
+    @SerializedName("followers")
+    private Integer followers;
+    @SerializedName("following")
+    private Integer following;
+    @SerializedName("created_at")
+    private String createdAt;
+    @SerializedName("updated_at")
+    private String updatedAt;
 
     public String getLogin() {
         return login;
@@ -181,5 +203,92 @@ public class User extends RealmObject{
         this.siteAdmin = siteAdmin;
     }
 
-}
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Object getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getBlog() {
+        return blog;
+    }
+
+    public void setBlog(String blog) {
+        this.blog = blog;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getPublicRepos() {
+        return publicRepos;
+    }
+
+    public void setPublicRepos(Integer publicRepos) {
+        this.publicRepos = publicRepos;
+    }
+
+    public Integer getPublicGists() {
+        return publicGists;
+    }
+
+    public void setPublicGists(Integer publicGists) {
+        this.publicGists = publicGists;
+    }
+
+    public Integer getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Integer followers) {
+        this.followers = followers;
+    }
+
+    public Integer getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Integer following) {
+        this.following = following;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+}

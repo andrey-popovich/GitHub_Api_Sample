@@ -22,6 +22,7 @@ import java.util.List;
 import io.realm.Realm;
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -30,23 +31,29 @@ public class UserFragment extends Fragment {
     private static final String TAG = "UserFragment";
     private RecyclerView mRecyclerView;
 
-    private Realm realm = null;
+//    private Realm realm = null;
     private GitHubService service;
     private Observable<List<User>> usersList;
+    private Subscription subscription;
+//    private Observable<User> userObservable;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
-
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_user);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(App.getContext()));
 
+        createSubscription();
+
+        return view;
+    }
+
+    public void createSubscription(){
         service = GitHubClient.getGitHubService();
         usersList = service.getUsersList();
-
-        usersList.subscribeOn(Schedulers.newThread())
+        subscription = usersList.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<User>>() {
                     @Override
@@ -62,8 +69,6 @@ public class UserFragment extends Fragment {
                     @Override
                     public void onNext(List<User> users) {
                         Log.i(TAG, "onNext: List size = " + users.size());
-                        mRecyclerView.setAdapter(new UsersListAdapter(users));
-
                         // data to realm
                         /*try {
                             realm = Realm.getDefaultInstance();
@@ -79,22 +84,24 @@ public class UserFragment extends Fragment {
                                 realm.close();
                             }
                         }*/
+                        mRecyclerView.setAdapter(new UsersListAdapter(users));
                     }
                 });
-
-
-        return view;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        // unsubscribe
+        Log.i(TAG, "onPause: Subscription is " + subscription.isUnsubscribed());
+        if (!subscription.isUnsubscribed()){
+        subscription.unsubscribe();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        // subscribe
+        Log.i(TAG, "onResume");
+        createSubscription();
     }
 }
