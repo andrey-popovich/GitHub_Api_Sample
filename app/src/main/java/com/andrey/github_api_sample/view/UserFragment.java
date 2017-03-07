@@ -55,20 +55,7 @@ public class UserFragment extends Fragment {
         usersList = service.getUsersList();
         subscription = usersList.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<User>>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.i(TAG, "onCompleted");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i(TAG, "onError: " + e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(List<User> users) {
-                        Log.i(TAG, "onNext: List size = " + users.size());
+                .subscribe(users -> mRecyclerView.setAdapter(new UsersListAdapter(users)));
                         // data to realm
                         /*try {
                             realm = Realm.getDefaultInstance();
@@ -84,9 +71,6 @@ public class UserFragment extends Fragment {
                                 realm.close();
                             }
                         }*/
-                        mRecyclerView.setAdapter(new UsersListAdapter(users));
-                    }
-                });
     }
 
     @Override
