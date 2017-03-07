@@ -56,21 +56,6 @@ public class UserFragment extends Fragment {
         subscription = usersList.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(users -> mRecyclerView.setAdapter(new UsersListAdapter(users)));
-                        // data to realm
-                        /*try {
-                            realm = Realm.getDefaultInstance();
-                            Realm finalRealm = realm;
-                            realm.executeTransaction(realm1 -> {
-                                for (User user : users) {
-                                    Log.i(TAG, "onNext: User id = " + user.getId());
-                                    finalRealm.copyToRealmOrUpdate(user);
-                                }
-                            });
-                        } finally {
-                            if (realm != null) {
-                                realm.close();
-                            }
-                        }*/
     }
 
     @Override
