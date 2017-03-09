@@ -1,4 +1,4 @@
-package com.andrey.github_api_sample.view;
+package com.andrey.github_api_sample.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,9 +19,7 @@ import com.andrey.github_api_sample.endpoint.GitHubService;
 
 import java.util.List;
 
-import io.realm.Realm;
 import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -30,12 +28,7 @@ public class UserFragment extends Fragment {
 
     private static final String TAG = "UserFragment";
     private RecyclerView mRecyclerView;
-
-//    private Realm realm = null;
-    private GitHubService service;
-    private Observable<List<User>> usersList;
     private Subscription subscription;
-//    private Observable<User> userObservable;
 
     @Nullable
     @Override
@@ -51,8 +44,8 @@ public class UserFragment extends Fragment {
     }
 
     public void createSubscription(){
-        service = GitHubClient.getGitHubService();
-        usersList = service.getUsersList();
+        GitHubService service = GitHubClient.getGitHubService();
+        Observable<List<User>> usersList = service.getUsersList();
         subscription = usersList.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(users -> mRecyclerView.setAdapter(new UsersListAdapter(users)));

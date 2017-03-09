@@ -4,10 +4,10 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.andrey.github_api_sample.view.MainActivity">
+    tools:context=".ui.activity.MainActivity">
 
     <fragment
-        android:name="com.andrey.github_api_sample.view.UserFragment"
+        android:name="com.andrey.github_api_sample.ui.fragment.UserFragment"
         android:id="@+id/fragment_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
